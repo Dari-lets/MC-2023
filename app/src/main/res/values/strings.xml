@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MC Project</string>
+
+    <string-array name="temp_strings">
+        <item>Header</item>
+        <item>sub Header</item>
+    </string-array>
+</resources>
