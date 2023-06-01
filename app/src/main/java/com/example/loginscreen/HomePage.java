@@ -15,7 +15,6 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
     static ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
     MessageAdapterClass adapter;
-    TextView output;
 
     static int [] avatars = {R.drawable.baseline_bedtime_24, R.drawable.baseline_snowmobile_24,
             R.drawable.baseline_umbrella_24};
@@ -40,12 +39,11 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        output = (TextView) findViewById(R.id.txtOutput);
     }
 
     private void setTexts(){
         for (int i = 0; i < 10; i++){
-            texts.add(new MessageClass("Bob" + i, "Hello there. I am Bob", avatars[i % avatars.length]));
+            texts.add(new MessageClass("Bob" + i, "Hello there. I am Bob" , avatars[i % avatars.length]));
         }
     }
 
@@ -97,10 +95,10 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
             if (resultCode == RESULT_OK){
                 String result = data.getStringExtra("TEXT");
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-                output.setText(result);
                 //texts.add(new TextClass("Bob New", result, 6));
                 //adapter.notifyItemInserted(texts.size());
             }
         }
     }
+
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
         ImageView avatar;
         TextView username;
         TextView text;
-        Button replyButton;
+        ImageButton replyButton;
         TextView votesText;
 
         public MyViewHolder(@NonNull View itemView, RecyclerInterface recyclerInterface) {
