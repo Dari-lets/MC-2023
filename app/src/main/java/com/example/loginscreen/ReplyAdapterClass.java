@@ -13,52 +13,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClass.MyViewHolder>{
+public class ReplyAdapterClass extends RecyclerView.Adapter<ReplyAdapterClass.MyViewHolder>{
 
-    private final RecyclerInterface recyclerInterface;
+    private final ReplyRecyclerInterface replyRecyclerInterface;
     Context context;
-    ArrayList<MessageClass> texts;
+    ArrayList<ReplyClass> texts;
 
-    public MessageAdapterClass(Context context, ArrayList<MessageClass> texts, RecyclerInterface recyclerInterface){
+    public ReplyAdapterClass(Context context, ArrayList<ReplyClass> texts, ReplyRecyclerInterface recyclerInterface){
         this.context = context;
         this.texts = texts;
-        this.recyclerInterface = recyclerInterface;
+        this.replyRecyclerInterface = recyclerInterface;
     }
 
     @NonNull
     @Override
-    public MessageAdapterClass.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReplyAdapterClass.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Give the text its look
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_row, parent, false);
-        return new MessageAdapterClass.MyViewHolder(view, recyclerInterface);
+        return new ReplyAdapterClass.MyViewHolder(view, replyRecyclerInterface);
     }
 
+//    @Override
+//    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+//
+//    }
+
+    // Give each message its value
     @Override
-    public void onBindViewHolder(@NonNull MessageAdapterClass.MyViewHolder holder, int position) {
-        // Give each message its value
+    public void onBindViewHolder(@NonNull ReplyAdapterClass.MyViewHolder holder, int position) {
         holder.username.setText(texts.get(position).getUsername());
-        holder.text.setText(texts.get(position).getText());
+        holder.text.setText(texts.get(position).getReply());
         holder.avatar.setImageResource(texts.get(position).getAvatar());
-        //
         holder.votesText.setText(String.valueOf(texts.get(position).getVotes()));
     }
 
+    // Total number of texts
     @Override
     public int getItemCount() {
-        // Total number of texts
         return texts.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-
         ImageView avatar;
         TextView username;
         TextView text;
         ImageButton replyButton;
         TextView votesText;
 
-        public MyViewHolder(@NonNull View itemView, RecyclerInterface recyclerInterface) {
+        public MyViewHolder(@NonNull View itemView, ReplyRecyclerInterface recyclerInterface) {
             super(itemView);
             avatar = itemView.findViewById(R.id.imageView);
             username = itemView.findViewById(R.id.userName);
@@ -73,7 +76,7 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
                 public void onClick(View view) {
                     if (recyclerInterface != null){
                         int position = getAdapterPosition();
-
+                        System.out.println("HIIIIIIII");
                         if (position != RecyclerView.NO_POSITION){
                             recyclerInterface.onReplyClick(position);
                         }
@@ -81,7 +84,7 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
                 }
             });
 
-            // Clicking the message itself. Should take you to the replies
+            // Clicking the message itself. Should do nothing.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -89,7 +92,8 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
                         int position = getAdapterPosition();
 
                         if (position != RecyclerView.NO_POSITION){
-                            recyclerInterface.onTextClick(position);
+                            //recyclerInterface.onTextClick(position);
+
                         }
                     }
                 }

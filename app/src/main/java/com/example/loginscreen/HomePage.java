@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +13,10 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
-    ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
+    static ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
     MessageAdapterClass adapter;
-    TextView output;
 
-    int [] avatars = {R.drawable.baseline_bedtime_24, R.drawable.baseline_snowmobile_24,
+    static int [] avatars = {R.drawable.baseline_bedtime_24, R.drawable.baseline_snowmobile_24,
             R.drawable.baseline_umbrella_24};
 
     @Override
@@ -42,15 +39,22 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        output = (TextView) findViewById(R.id.txtOutput);
     }
 
     private void setTexts(){
         for (int i = 0; i < 10; i++){
-            texts.add(new MessageClass("Bob" + i, "Hello there. I am Bob", avatars[i % avatars.length]));
+            texts.add(new MessageClass("Bob" + i, "Hello there. I am Bob" , avatars[i % avatars.length]));
         }
     }
 
+
+    public static MessageClass getMessage(int position){
+        return texts.get(position);
+    }
+
+//    public static int setImage(int position){
+//        return avatars[position];
+//    }
 
     public static boolean sendNewText(String text){
         return true;
@@ -59,11 +63,18 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     public static boolean sendNewReply(String text){
         return true;
     }
+
+    // Message is clicked.
     @Override
     public void onTextClick(int position) {
         // TODO
+        //System.out.println("Message clicked");
+        Intent intent = new Intent(this, ReplyActivity.class);
+        intent.putExtra("MessageIndex", position);
+        startActivity(intent);
     }
 
+    // Message's reply button is clicked
     @Override
     public void onReplyClick(Integer position) {
         // TODO
@@ -85,10 +96,10 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
             if (resultCode == RESULT_OK){
                 String result = data.getStringExtra("TEXT");
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-                output.setText(result);
                 //texts.add(new TextClass("Bob New", result, 6));
                 //adapter.notifyItemInserted(texts.size());
             }
         }
     }
+
 }

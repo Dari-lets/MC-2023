@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage">
+    tools:context=".HomePage"
+    android:background="@color/white">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecycler"
@@ -17,23 +18,16 @@
 
     <ImageButton
         android:id="@+id/btnNewText"
-        android:layout_width="77dp"
-        android:layout_height="71dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="NewText"
         android:onClick="createNewText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/baseline_add_24"
+        android:background="@drawable/circle_white"/>
 
-    <TextView
-        android:id="@+id/txtOutput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/mRecycler"
-        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
