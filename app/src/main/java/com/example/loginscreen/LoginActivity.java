@@ -99,7 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                                         }
 
                                         if (loginSuccessful) {
-                                            LsOnly.setText("Login Successful");
+                                            //LsOnly.setText("Login Successful");
+                                            LoginSuccessful();
                                         } else {
                                             LsOnly.setText("Invalid credentials bish");
                                         }

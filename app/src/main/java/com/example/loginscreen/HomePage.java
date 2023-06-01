@@ -68,6 +68,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     @Override
     public void onTextClick(int position) {
         // TODO
+        //System.out.println("Message clicked");
         Intent intent = new Intent(this, ReplyActivity.class);
         intent.putExtra("MessageIndex", position);
         startActivity(intent);

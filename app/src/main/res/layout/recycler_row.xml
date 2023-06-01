@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/mainText"
                 android:layout_width="368dp"
-                android:layout_height="21dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:text="This is where the question goes"

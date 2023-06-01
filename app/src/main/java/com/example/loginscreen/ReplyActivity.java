@@ -77,7 +77,6 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
     @Override
     public void onTextClick(int position) {
         // TODO
-        System.out.println("Reply pressed");
         RmessageContent.setText(100 + position);
 
     }
@@ -86,7 +85,6 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
     @Override
     public void onReplyClick(Integer position) {
         // TODO
-        System.out.println("Reply reply pressed " + position);
         RmessageContent.setText("yououo");
         //texts.get(position).setVotes(texts.get(position).getVotes() + 1);
         //adapter.notifyItemChanged(position);
