@@ -5,7 +5,17 @@ public class ReplyClass {
     String username;
     int avatar;
 
-    public ReplyClass(String reply, String username, int avatar) {
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
+    int votes = 0;
+
+    public ReplyClass(String username, String reply, int avatar) {
         this.reply = reply;
         this.username = username;
         this.avatar = avatar;

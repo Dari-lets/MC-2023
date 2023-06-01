@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +13,11 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
-    ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
+    static ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
     MessageAdapterClass adapter;
     TextView output;
 
-    int [] avatars = {R.drawable.baseline_bedtime_24, R.drawable.baseline_snowmobile_24,
+    static int [] avatars = {R.drawable.baseline_bedtime_24, R.drawable.baseline_snowmobile_24,
             R.drawable.baseline_umbrella_24};
 
     @Override
@@ -52,6 +50,14 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     }
 
 
+    public static MessageClass getMessage(int position){
+        return texts.get(position);
+    }
+
+//    public static int setImage(int position){
+//        return avatars[position];
+//    }
+
     public static boolean sendNewText(String text){
         return true;
     }
@@ -59,11 +65,17 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     public static boolean sendNewReply(String text){
         return true;
     }
+
+    // Message is clicked.
     @Override
     public void onTextClick(int position) {
         // TODO
+        Intent intent = new Intent(this, ReplyActivity.class);
+        intent.putExtra("MessageIndex", position);
+        startActivity(intent);
     }
 
+    // Message's reply button is clicked
     @Override
     public void onReplyClick(Integer position) {
         // TODO

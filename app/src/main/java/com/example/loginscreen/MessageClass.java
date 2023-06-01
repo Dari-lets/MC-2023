@@ -7,6 +7,7 @@ public class MessageClass {
     String username;
     String text;
     int avatar;
+    int votes = 0;
 
     public int getVotes() {
         return votes;
@@ -16,7 +17,6 @@ public class MessageClass {
         this.votes = votes;
     }
 
-    int votes = 0;
 
     public MessageClass(String username, String text, int avatar) {
         this.username = username;

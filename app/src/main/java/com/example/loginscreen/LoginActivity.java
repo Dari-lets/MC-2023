@@ -1,36 +1,40 @@
 package com.example.loginscreen;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.*;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.loginscreen.HomePage;
+import com.example.loginscreen.R;
+import com.example.loginscreen.SignupActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.*;
 
+import java.util.Vector;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    EditText username;
-    EditText password;
+    EditText name;
+    EditText pass;
 
     EditText print;
-    Button SignUpButton;
+    Button RegisterFromLogin;
     Button login;
     LinearLayout m;
     TextView LsOnly;
@@ -44,93 +48,81 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         m = new LinearLayout(this);
 
-
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
-        SignUpButton = findViewById(R.id.SignUpButton);
+        name = findViewById(R.id.username);
+        pass = findViewById(R.id.password);
+        RegisterFromLogin = findViewById(R.id.SignUpButton);
         login = findViewById(R.id.LoginButton);
 
         LsOnly = new TextView(this);
         print = new EditText(this);
 
-        SignUpButton.setOnClickListener(new View.OnClickListener(){
+        RegisterFromLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-//                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-//                startActivity(intent);
-                LoginSuccessful();
-                finish();
-
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener(){
-
+        login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-                String StudentNumber = username.getText().toString();
-                String password = LoginActivity.this.password.getText().toString();
-
+                String studentNumber = name.getText().toString();
+                String password = pass.getText().toString();
 
                 String url = "https://lamp.ms.wits.ac.za/home/s2541383/login.php";
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
 
                             @Override
                             public void onResponse(String response) {
-
                                 try {
-                                    Vector<String> StuNums = processJSONStu(response);
-                                    Vector<String> StuPass = processJSONPas(response);
+                                    Vector<String> stuNums = processJSONStu(response);
+                                    Vector<String> stuPass = processJSONPas(response);
                                     m.setOrientation(m.VERTICAL);
-                                    //when nobody has signed up, stuNums thing is empty
-                                    if (StuNums.size() == 0){
-                                        LsOnly.setText("You don't exist bishh! - Monare");
+
+                                    if (stuNums.size() == 0) {
+                                        LsOnly.setText("You don't exist bish!");
                                         setContentView(m);
                                         m.addView(LsOnly);
+                                    } else {
+                                        boolean loginSuccessful = false;
 
-                                    }else {
-                                        for (int i = 0; i < StuNums.size(); i++) {
-
-                                            if (StuNums.get(i).equals(StudentNumber)) {
-                                                if (StuPass.get(i).equals(password)) {
-                                                    LsOnly.setText("Login Successful");
-                                                    setContentView(m);
-                                                    m.addView(LsOnly);
-                                                } else {
-                                                    LsOnly.setText("Password Wrong bishh");
-                                                    setContentView(m);
-                                                    m.addView(LsOnly);
-                                                }
-
-                                            } else {
-                                                LsOnly.setText("You don't exist bishh! - Monare");
-                                                setContentView(m);
-                                                m.addView(LsOnly);
+                                        for (int i = 0; i < stuNums.size(); i++) {
+                                            if (stuNums.get(i).equals(studentNumber) && stuPass.get(i).equals(password)) {
+                                                loginSuccessful = true;
+                                                break;
                                             }
                                         }
+
+                                        if (loginSuccessful) {
+                                            LsOnly.setText("Login Successful");
+                                        } else {
+                                            LsOnly.setText("Invalid credentials bish");
+                                        }
+
+                                        setContentView(m);
+                                        m.addView(LsOnly);
                                     }
-
-
-                                } catch (JSONException e){
-                                    throw new RuntimeException(e);
+                                } catch (JSONException e) {
+                                    Log.e("JSONException", e.getMessage()); // Log the error
+                                    LsOnly.setText("Error occurred");
+                                    setContentView(m);
+                                    m.addView(LsOnly);
                                 }
 
                             }
 
                         }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error){
-                        //something is not working the way its supposed to work in the OnResponse
-                        LsOnly.setText("Shit's busted");
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.getMessage()); // Log the error
+                        LsOnly.setText("Error occurred");
                         setContentView(m);
                         m.addView(LsOnly);
-
                     }
                 });
 
@@ -140,32 +132,29 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     public Vector<String> processJSONStu(String jsonyy) throws JSONException {
-
         JSONArray q = new JSONArray(jsonyy);
-        Vector <String> VecStuNums = new Vector<String>();
+        Vector<String> vecStuNums = new Vector<>();
 
-        for (int i = 0; i < q.length(); i++){
+        for (int i = 0; i < q.length(); i++) {
             JSONObject job = q.getJSONObject(i);
-            String Brandy = job.getString("student_number");
-            VecStuNums.add(Brandy);
+            String studentNumber = job.getString("student_number");
+            vecStuNums.add(studentNumber);
         }
-        return VecStuNums;
-
+        return vecStuNums;
     }
 
     public Vector<String> processJSONPas(String jsonyy) throws JSONException {
-
         JSONArray q = new JSONArray(jsonyy);
-        Vector <String> VecStuPass = new Vector<String>();
+        Vector<String> vecStuPass = new Vector<>();
 
-        for (int i = 0; i < q.length(); i++){
+        for (int i = 0; i < q.length(); i++) {
             JSONObject job = q.getJSONObject(i);
-            String Brandy = job.getString("passwordd");
-            VecStuPass.add(Brandy);
+            String password = job.getString("passwordd");
+            vecStuPass.add(password);
         }
-        return VecStuPass;
-
+        return vecStuPass;
     }
 
     public void LoginSuccessful(){
@@ -173,3 +162,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+
