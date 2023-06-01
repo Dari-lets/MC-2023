@@ -81,12 +81,21 @@
                 android:textColor="@color/black"
                 />
 
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/LoginButton"
                 android:text="Login"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/blue_grey"
+                app:cornerRadius = "20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/temp"
+                android:text="create profile"
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/blue_grey"

@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText print;
     Button SignUpButton;
+    Button tmp;
     Button login;
     LinearLayout m;
     TextView LsOnly;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.password);
         SignUpButton = findViewById(R.id.SignUpButton);
         login = findViewById(R.id.LoginButton);
+        tmp = findViewById(R.id.temp);
 
         LsOnly = new TextView(this);
         print = new EditText(this);
@@ -65,6 +67,17 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        tmp.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         login.setOnClickListener(new View.OnClickListener(){
 
