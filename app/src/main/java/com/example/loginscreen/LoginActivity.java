@@ -58,8 +58,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+//                startActivity(intent);
+                LoginSuccessful();
+                finish();
 
             }
         });
@@ -164,5 +166,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         return VecStuPass;
 
+    }
+
+    public void LoginSuccessful(){
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
     }
 }
