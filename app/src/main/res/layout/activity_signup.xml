@@ -60,6 +60,13 @@
                 android:padding="8dp"
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/cardview_dark_background" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/StudentNumberText"/>
 
             <EditText
                 android:id="@+id/signup_password"
@@ -77,6 +84,14 @@
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/cardview_dark_background" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/PwText"/>
+
             <EditText
                 android:id="@+id/signup_confirm_password"
                 android:layout_width="match_parent"
@@ -87,11 +102,11 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Confirm Password"
-                android:textColorHint="@color/white"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/white"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:textColorHint="@color/white" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,23 +114,29 @@
                 android:text=""
                 android:textColor="#FF0000"
                 android:textSize="11sp"
-                android:id="@+id/pwDifferentText"/>
+                android:id="@+id/ConfirmPwText"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/LayoutQuestions">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Security Questions:"
+                android:text="Security Questions(answer only 3):"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <!-- one textview, one edit text, 2 buttons:skip and submit-->
             <TextView
+                android:id="@+id/QuestionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/QuestionText"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
                 android:text="Question goes here"
                 android:textColor="@color/black"
@@ -132,13 +153,19 @@
                 android:textColorHint="@color/white"
                 android:padding="10dp"
                 android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(field required)message goes here"
+                    android:textColor="#FF0000"
+                    android:textSize="11sp"
+                    android:id="@+id/AnswerText"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
+                android:orientation="horizontal">
                 <!-- Add the two Button elements here -->
 
                 <Button
@@ -166,7 +193,7 @@
                     app:cornerRadius="10dp" />
 
             </LinearLayout>
-
+        </LinearLayout>
             <Button
                 android:id="@+id/sign_up_button"
                 android:layout_width="256dp"
