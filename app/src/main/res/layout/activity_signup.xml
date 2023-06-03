@@ -29,23 +29,24 @@
         app:cardCornerRadius="30dp"
         card_view:cardBackgroundColor="@android:color/white"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
             android:padding="24dp">
 
             <TextView
+                android:id="@+id/SignUpText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign Up"
-                android:textAllCaps="false"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="36sp"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:id="@+id/SignUpText"/>
+                android:textSize="36sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/StudentNumber"
@@ -55,6 +56,7 @@
                 android:background="@drawable/custom_edittext"
                 android:backgroundTint="@color/darkish_grey"
                 android:hint="Enter Student Number"
+                android:textColorHint="@color/white"
                 android:padding="8dp"
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/cardview_dark_background" />
@@ -69,6 +71,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Enter Password"
+                android:textColorHint="@color/white"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/white"
@@ -84,24 +87,97 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Confirm Password"
+                android:textColorHint="@color/white"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/cardview_dark_background" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Security Questions:"
-                android:textSize="18sp"
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/pwDifferentText"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
+                android:text="Security Questions:"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <!-- one textview, one edit text, 2 buttons:skip and submit-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="select only 3"
+                android:id="@+id/QuestionText"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp"
+                android:text="Question goes here"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/Answer"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edittext"
+                android:backgroundTint="@color/darkish_grey"
+                android:hint="Enter answer"
+                android:textColorHint="@color/white"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <!-- Add the two Button elements here -->
+
+                <Button
+                    android:id="@+id/SkipButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/light_grey"
+                    android:text="Skip"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:cornerRadius="10dp" />
+
+                <Button
+                    android:id="@+id/SubmitButton"
+                    android:layout_width="98dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/light_grey"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/sign_up_button"
+                android:layout_width="256dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:backgroundTint="@color/blue_grey"
+                android:text="Sign Up"
                 android:textSize="18sp"
-                android:layout_marginTop="0dp"
-                android:textColor="@color/black"/>
+                app:cornerRadius="0dp" />
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

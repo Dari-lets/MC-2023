@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     Button RegisterFromLogin;
     Button login;
     LinearLayout m;
+    Button ForgotPasswordButton;
     TextView LsOnly;
 
     EditText Checker;
@@ -52,16 +53,28 @@ public class LoginActivity extends AppCompatActivity {
         pass = findViewById(R.id.password);
         RegisterFromLogin = findViewById(R.id.SignUpButton);
         login = findViewById(R.id.LoginButton);
+        ForgotPasswordButton = findViewById(R.id.ForgotPasswordButton);
 
         LsOnly = new TextView(this);
         print = new EditText(this);
 
+        //when user presses sign up button
         RegisterFromLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
+            }
+        });
+        //when user presses forgot password, go to forgot password page
+
+        ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -161,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
     public void LoginSuccessful(){
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
+        finish();
     }
 }
 
