@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     LinearLayout m;
     Button ForgotPasswordButton;
+
+
     TextView LsOnly;
 
     EditText Checker;
@@ -55,8 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.LoginButton);
         ForgotPasswordButton = findViewById(R.id.ForgotPasswordButton);
 
+
         LsOnly = new TextView(this);
         print = new EditText(this);
+
+
 
         //when user presses sign up button
         RegisterFromLogin.setOnClickListener(new View.OnClickListener() {

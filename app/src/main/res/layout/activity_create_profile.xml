@@ -58,6 +58,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
                 android:hint="Enter Username"
+                android:textColorHint="@color/white"
                 android:background="@drawable/custom_edittext"
                 android:backgroundTint="@color/darkish_grey"
                 android:drawablePadding="8dp"
@@ -94,7 +95,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/esport"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -102,40 +103,25 @@
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:foreground="@drawable/effect"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:layout_width="48dp"
+                        android:id="@+id/esport_toggle"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/toggle_selector_esports"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"
-                            android:src="@drawable/baseline_sports_esports_24" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:id="@+id/esport1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -147,33 +133,15 @@
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:id="@+id/diamond_toggle"
+                        android:layout_width="48dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/toggle_selector_diamond"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:src="@drawable/baseline_diamond_24"
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="HOME"-->
-<!--                            android:textAlignment="center"-->
-<!--                            android:textColor="@color/white" />-->
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -187,10 +155,8 @@
                 android:rowCount="3">
 
                 <androidx.cardview.widget.CardView
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:id="@+id/esport2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -202,36 +168,21 @@
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:layout_width="48dp"
+                        android:id="@+id/face_toggle"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/face_selector"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:src="@drawable/face"
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:id="@+id/esport3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -243,27 +194,15 @@
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:layout_width="48dp"
+                        android:id="@+id/peace_toggle"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/peace_selector"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"
-                            android:src="@drawable/baseline_self_improvement_24" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -278,10 +217,8 @@
                 android:rowCount="3">
 
                 <androidx.cardview.widget.CardView
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:id="@+id/esport4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -293,34 +230,21 @@
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:layout_width="48dp"
+                        android:id="@+id/moon_toggle"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/moon_selector"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"
-                            android:src="@drawable/moon" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:id="@+id/esport5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
@@ -332,26 +256,15 @@
                     app:cardElevation="8dp"
                     card_view:cardBackgroundColor="@android:color/darker_gray">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <ToggleButton
+                        android:layout_width="48dp"
+                        android:id="@+id/pokemon_toggle"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/pokemon_selector"
+                        android:textOff=""
+                        android:textOn="" />
 
-                        <ImageView
-                            android:layout_width="44dp"
-                            android:layout_height="90dp"
-                            android:src="@drawable/pokemon" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HOME"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 

@@ -28,7 +28,7 @@ public class VolleyRequestHelper {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    public void insertData(final String user, final int avator) {
+    public void insertData(final String user, final int avator, final String stu_num) {
         StringRequest request = new StringRequest(Request.Method.POST, INSERT_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -65,6 +65,7 @@ public class VolleyRequestHelper {
                 Map<String, String> params = new HashMap<>();
                 params.put("USERNAME", user);
                 params.put("AVATAR", String.valueOf(avator));
+                params.put("STU_NUM", stu_num);
                 return params;
             }
         };
