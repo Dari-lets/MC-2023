@@ -72,7 +72,7 @@
                 android:id="@+id/signup_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/custom_edittext"
                 android:backgroundTint="@color/darkish_grey"
                 android:drawableLeft="@drawable/baseline_lock_24"
@@ -96,7 +96,7 @@
                 android:id="@+id/signup_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/custom_edittext"
                 android:backgroundTint="@color/darkish_grey"
                 android:drawableLeft="@drawable/baseline_lock_24"
@@ -126,19 +126,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Security Questions(answer only 3):"
+                android:text="Security Questions:"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <!-- one textview, one edit text, 2 buttons:skip and submit-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <!-- Content within the ScrollView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Add your views here -->
+
+
             <TextView
-                android:id="@+id/QuestionText"
+                android:id="@+id/Question1Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
-                android:text="Question goes here"
+                android:text="Question1 goes here"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -153,53 +165,90 @@
                 android:textColorHint="@color/white"
                 android:padding="10dp"
                 android:textColor="@color/white"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="(field required)message goes here"
-                    android:textColor="#FF0000"
-                    android:textSize="11sp"
-                    android:id="@+id/AnswerText"/>
-
-
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!-- Add the two Button elements here -->
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/AnswerText"/>
+            <TextView
+                android:id="@+id/Question2Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="Question2 goes here"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+            <EditText
+                android:id="@+id/Answer1"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edittext"
+                android:backgroundTint="@color/darkish_grey"
+                android:hint="Enter answer"
+                android:textColorHint="@color/white"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/Answer1Text"/>
+            <TextView
+                android:id="@+id/Question3Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="Question3 goes here"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+            <EditText
+                android:id="@+id/Answer2"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edittext"
+                android:backgroundTint="@color/darkish_grey"
+                android:hint="Enter answer"
+                android:textColorHint="@color/white"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000"
+                android:textSize="11sp"
+                android:id="@+id/Answer2Text"/>
 
-                <Button
-                    android:id="@+id/SkipButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="@color/light_grey"
-                    android:text="Skip"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    app:cornerRadius="10dp" />
-
-                <Button
-                    android:id="@+id/SubmitButton"
-                    android:layout_width="98dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="@color/light_grey"
-                    android:text="Submit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    app:cornerRadius="10dp" />
-
-            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:id="@+id/SubmitButton"
+                android:layout_marginHorizontal="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/light_grey"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:cornerRadius="10dp"
+                />
+        </LinearLayout>
+    </ScrollView>
         </LinearLayout>
             <Button
                 android:id="@+id/sign_up_button"
                 android:layout_width="256dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/blue_grey"
                 android:text="Sign Up"
                 android:textSize="18sp"
