@@ -30,19 +30,16 @@ public class CreateNewMessage extends AppCompatActivity {
 
     public void sendText(View view) {
         text = newText.getText().toString();
-        //sendTextButton.setText(text);
-        //Toast.makeText(this, (CharSequence) text, Toast.LENGTH_SHORT).show();
+
+        if (text.length() > 300) {
+            Toast.makeText(this, "Message is too long.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent();
         intent.putExtra("TEXT", text);
         setResult(RESULT_OK, intent);
         finish();
-//        if (home_page.sendNewText(text)){
-//            //finish();
-//        }
-//        else{
-//            Toast.makeText(this, "Message failed to send.", Toast.LENGTH_SHORT).show();
-//        }
 
     }
 }

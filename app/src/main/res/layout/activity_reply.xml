@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkish_grey"
     tools:context=".ReplyActivity">
 
     <TextView
@@ -51,12 +52,15 @@
 
     <ImageButton
         android:id="@+id/btnNewReply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:background="@drawable/circle_white"
         android:contentDescription="NewReply"
+        android:onClick="createNewReply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/baseline_add_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

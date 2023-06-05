@@ -1,5 +1,7 @@
 package com.example.loginscreen;
 
+import static com.example.loginscreen.PasswordHasher.hashPassword;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.loginscreen.HomePage;
-import com.example.loginscreen.R;
-import com.example.loginscreen.SignupActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,15 +31,13 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText name;
     EditText pass;
-
-    EditText print;
     Button RegisterFromLogin;
     Button login;
+
+    //These below are for testing
     LinearLayout m;
-    Button ForgotPasswordButton;
     TextView LsOnly;
 
-    EditText Checker;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,12 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         pass = findViewById(R.id.password);
         RegisterFromLogin = findViewById(R.id.SignUpButton);
         login = findViewById(R.id.LoginButton);
-        ForgotPasswordButton = findViewById(R.id.ForgotPasswordButton);
 
         LsOnly = new TextView(this);
-        print = new EditText(this);
 
-        //when user presses sign up button
         RegisterFromLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -67,29 +61,21 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //when user presses forgot password, go to forgot password page
-
-        ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                String studentNumber = name.getText().toString();
+                String username = name.getText().toString();
                 String password = pass.getText().toString();
+                String HashedPassword = hashPassword(password);
 
                 String url = "https://lamp.ms.wits.ac.za/home/s2541383/login.php";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
 
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onResponse(String response) {
                                 try {
@@ -98,28 +84,41 @@ public class LoginActivity extends AppCompatActivity {
                                     m.setOrientation(m.VERTICAL);
 
                                     if (stuNums.size() == 0) {
-                                        LsOnly.setText("You don't exist bish!");
+                                        LsOnly.setText("Database empty, register now");
                                         setContentView(m);
                                         m.addView(LsOnly);
                                     } else {
-                                        boolean loginSuccessful = false;
+
+                                        boolean found = false; // Flag to track if a match is found
 
                                         for (int i = 0; i < stuNums.size(); i++) {
-                                            if (stuNums.get(i).equals(studentNumber) && stuPass.get(i).equals(password)) {
-                                                loginSuccessful = true;
-                                                break;
+                                            String currentStuNum = stuNums.get(i);
+                                            String currentStuPass = stuPass.get(i);
+
+                                            if (currentStuNum.equals(username) && currentStuPass.equals(password)) {
+                                                // Login Successful
+                                                found = true; // Set the flag to true
+                                                LoginActivity.this.runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                                        intent.putExtra("USERNAME", username);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
                                             }
                                         }
 
-                                        if (loginSuccessful) {
-                                            //LsOnly.setText("Login Successful");
-                                            LoginSuccessful();
-                                        } else {
-                                            LsOnly.setText("Invalid credentials bish");
+                                        if (!found) {
+                                            // No match found
+                                            LsOnly.setText("Invalid Username or Password");
+                                            setContentView(m);
+                                            m.addView(LsOnly);
                                         }
 
-                                        setContentView(m);
-                                        m.addView(LsOnly);
+
+
                                     }
                                 } catch (JSONException e) {
                                     Log.e("JSONException", e.getMessage()); // Log the error
@@ -170,12 +169,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         return vecStuPass;
     }
-
-    public void LoginSuccessful(){
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-        finish();
-    }
 }
-
 

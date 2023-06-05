@@ -4,10 +4,23 @@ import java.util.ArrayList;
 
 public class MessageClass {
     // Main text message
-    String username;
-    String text;
-    int avatar;
+    String username = "";
+    String text = "";
+    int avatar = 0;
     int votes = 0;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    int ID = 0;
+
+    boolean upVoted = false;
+    boolean downVoted = false;
 
     public int getVotes() {
         return votes;
@@ -34,6 +47,10 @@ public class MessageClass {
 
     public int getAvatar() {
         return avatar;
+    }
+
+    public ReplyClass getReply(int position){
+        return replies.get(position);
     }
 
     // all the replies

@@ -5,6 +5,32 @@ public class ReplyClass {
     String username;
     int avatar;
 
+    boolean upVote = false;
+    boolean downVote = false;
+
+    public int getReplyKey() {
+        return replyKey;
+    }
+
+    public void setReplyKey(int replyKey) {
+        this.replyKey = replyKey;
+    }
+
+    int replyKey;
+
+    public int getOrignalMessageKey() {
+        return orignalMessageKey;
+    }
+
+    public void setOrignalMessageKey(int orignalMessageKey) {
+        this.orignalMessageKey = orignalMessageKey;
+    }
+
+    int orignalMessageKey;
+
+    boolean upVoted = false;
+    boolean downVoted = false;
+
     public int getVotes() {
         return votes;
     }

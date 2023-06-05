@@ -1,5 +1,6 @@
 package com.example.loginscreen;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,11 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
         holder.text.setText(texts.get(position).getText());
         holder.avatar.setImageResource(texts.get(position).getAvatar());
         //
-        holder.votesText.setText(String.valueOf(texts.get(position).getVotes()));
+        int numVotes = Math.max(0, texts.get(position).getVotes());
+        holder.votesText.setText(String.valueOf(numVotes));
+
+        holder.upVoteButton.setChecked(texts.get(position).upVoted);
+        holder.downVoteButton.setChecked(texts.get(position).downVoted);
     }
 
     @Override
@@ -57,6 +63,8 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
         TextView text;
         ImageButton replyButton;
         TextView votesText;
+        ToggleButton upVoteButton;
+        ToggleButton downVoteButton;
 
         public MyViewHolder(@NonNull View itemView, RecyclerInterface recyclerInterface) {
             super(itemView);
@@ -65,6 +73,10 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
             text = itemView.findViewById(R.id.mainText);
             replyButton = itemView.findViewById(R.id.btnReply);
             votesText = itemView.findViewById(R.id.txtVotes);
+            upVoteButton = itemView.findViewById(R.id.btnUpvote);
+            downVoteButton = itemView.findViewById(R.id.btnDownvote);
+
+
 
 
             // Clicking on the reply button
@@ -76,6 +88,34 @@ public class MessageAdapterClass extends RecyclerView.Adapter<MessageAdapterClas
 
                         if (position != RecyclerView.NO_POSITION){
                             recyclerInterface.onReplyClick(position);
+                        }
+                    }
+                }
+            });
+
+            // The message's upvote button is pressed
+            upVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerInterface != null){
+                        int position = getAdapterPosition();
+
+                        if (position != RecyclerView.NO_POSITION){
+                            recyclerInterface.onUpvote(position, upVoteButton.isChecked(), itemView);
+                        }
+                    }
+                }
+            });
+
+            // The message's downvote button is pressed
+            downVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerInterface != null){
+                        int position = getAdapterPosition();
+
+                        if (position != RecyclerView.NO_POSITION){
+                            recyclerInterface.onDownVote(position, downVoteButton.isChecked(), itemView);
                         }
                     }
                 }
