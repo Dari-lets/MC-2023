@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/baseline_diamond_24" /> <!-- Reference your vector image drawable -->
+    <item
+        android:drawable="@drawable/baseline_check_24" /> <!-- Reference your custom border drawable -->
+</layer-list>

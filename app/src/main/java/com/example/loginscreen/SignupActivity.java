@@ -154,6 +154,7 @@ public class SignupActivity extends AppCompatActivity {
                         Intent intent = new Intent(SignupActivity.this, CreateProfileActivity.class);
                         intent.putExtra("StudentNumber",stu_number);
                         startActivity(intent);
+                        finish();
                     } else {//input ans answers are invalid, do not process
                         pwDontMatch.setText("Passwords Do Not Match!");
                     }
@@ -219,8 +220,8 @@ public class SignupActivity extends AppCompatActivity {
                             if (status.equals("success")) {
                                 Toast.makeText(SignupActivity.this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
                                 // Switch to login page or perform any other actions
-                                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                startActivity(intent);
+                                //Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                //startActivity(intent);
                             } else if (status.equals("error")) {
                                 String errorMessage = jsonObject.optString("message");
                                 Toast.makeText(SignupActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
@@ -256,7 +257,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void InsertAnswers(String studentNumber, String Q1, String Q2, String Q3) {
 
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/securityquestions.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sq_post.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
