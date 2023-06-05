@@ -6,11 +6,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,15 +31,19 @@ import java.util.Vector;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText name;
-    EditText pass;
+    EditText username;
+    EditText password;
+
+    EditText print;
     Button RegisterFromLogin;
     Button login;
-
-    //These below are for testing
     LinearLayout m;
+    Button ForgotPasswordButton;
     TextView LsOnly;
+    TextView UsernameText;
+    TextView PasswordText;
 
+    EditText Checker;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,13 +52,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         m = new LinearLayout(this);
 
-        name = findViewById(R.id.username);
-        pass = findViewById(R.id.password);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
         RegisterFromLogin = findViewById(R.id.SignUpButton);
         login = findViewById(R.id.LoginButton);
+        ForgotPasswordButton = findViewById(R.id.ForgotPasswordButton);
+        UsernameText = findViewById(R.id.UsernameText);
+        PasswordText = findViewById(R.id.PasswordText);
 
         LsOnly = new TextView(this);
+        print = new EditText(this);
 
+        //when user presses sign up button
         RegisterFromLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,21 +72,47 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //when user presses forgot password, go to forgot password page
+
+        ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                String username = name.getText().toString();
-                String password = pass.getText().toString();
-                String HashedPassword = hashPassword(password);
+                String studentNumber = username.getText().toString();
+                String password1 = LoginActivity.this.password.getText().toString();
+                String HashedPassword = hashPassword(password1);
 
-                String url = "https://lamp.ms.wits.ac.za/home/s2541383/login.php";
+                boolean ValidInput = true;
+                //strings to hold the input
+                String name = username.getText().toString();
+                String pass = password.getText().toString();
+                if (name.isEmpty()) {
+                    ValidInput = false;
+                    UsernameText.setText("Required Field");
+                } else {
+                    UsernameText.setText("");
+                }
+                if (pass.isEmpty()) {
+                    ValidInput = false;
+                    PasswordText.setText("Required Field");
+                } else {
+                    PasswordText.setText("");
+                }
+                if (ValidInput) {
+                String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
 
-                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onResponse(String response) {
                                 try {
@@ -84,45 +121,39 @@ public class LoginActivity extends AppCompatActivity {
                                     m.setOrientation(m.VERTICAL);
 
                                     if (stuNums.size() == 0) {
-                                        LsOnly.setText("Database empty, register now");
+                                        LsOnly.setText("Database empty, register now!");
                                         setContentView(m);
                                         m.addView(LsOnly);
                                     } else {
 
-                                        boolean found = false; // Flag to track if a match is found
+                                        boolean found = false;
 
                                         for (int i = 0; i < stuNums.size(); i++) {
                                             String currentStuNum = stuNums.get(i);
                                             String currentStuPass = stuPass.get(i);
 
-                                            if (currentStuNum.equals(username) && currentStuPass.equals(password)) {
-                                                // Login Successful
-                                                found = true; // Set the flag to true
-                                                LoginActivity.this.runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Intent intent = new Intent(LoginActivity.this, HomePage.class);
-                                                        intent.putExtra("USERNAME", username);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }
-                                                });
+                                            if (currentStuNum.equals(studentNumber) && currentStuPass.equals(HashedPassword)) {
+                                                //Login successful, go to homepage
+                                                Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                                startActivity(intent);
+                                                finish();
+                                                found = true; // set flag to true
+                                                break;
+
                                             }
                                         }
 
-                                        if (!found) {
-                                            // No match found
-                                            LsOnly.setText("Invalid Username or Password");
-                                            setContentView(m);
-                                            m.addView(LsOnly);
+                                        if (!found) {//invalid credentials
+                                            Toast toast = Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.TOP, 0, 0);
+                                            toast.show();
                                         }
-
-
 
                                     }
                                 } catch (JSONException e) {
+                                    //this is also for us, for testing
                                     Log.e("JSONException", e.getMessage()); // Log the error
-                                    LsOnly.setText("Error occurred");
+                                    LsOnly.setText("Something bad has happened...");
                                     setContentView(m);
                                     m.addView(LsOnly);
                                 }
@@ -142,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
                 requestQueue.add(stringRequest);
             }
+        }
         });
 
     }
@@ -152,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 
         for (int i = 0; i < q.length(); i++) {
             JSONObject job = q.getJSONObject(i);
-            String studentNumber = job.getString("student_number");
+            String studentNumber = job.getString("STU_NUM");
             vecStuNums.add(studentNumber);
         }
         return vecStuNums;
@@ -164,10 +196,17 @@ public class LoginActivity extends AppCompatActivity {
 
         for (int i = 0; i < q.length(); i++) {
             JSONObject job = q.getJSONObject(i);
-            String password = job.getString("passwordd");
+            String password = job.getString("PASSWORD");
             vecStuPass.add(password);
         }
         return vecStuPass;
     }
+
+    public void LoginSuccessful(){
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
+        finish();
+    }
 }
+
 
