@@ -253,7 +253,6 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
     }
 
     // Update the reply's votes in the database
-    // TODO connect to the database
     private void updateVotes(int position, int updateScore){
 
         replies.get(position).setVotes(replies.get(position).getVotes() + updateScore);
