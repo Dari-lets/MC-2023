@@ -113,6 +113,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                  boolean ValidInput = true;
                 //strings for holding the input from the app user in the EditTexts
                 String stu_number = stu_num.getText().toString();
@@ -154,7 +155,6 @@ public class SignupActivity extends AppCompatActivity {
                         Intent intent = new Intent(SignupActivity.this, CreateProfileActivity.class);
                         intent.putExtra("StudentNumber",stu_number);
                         startActivity(intent);
-                        finish();
                     } else {//input ans answers are invalid, do not process
                         pwDontMatch.setText("Passwords Do Not Match!");
                     }

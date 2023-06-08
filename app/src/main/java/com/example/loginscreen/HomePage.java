@@ -31,7 +31,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     MessageAdapterClass adapter;
     RecyclerView recyclerView;
 
-    static int CURRENT_USER_STU_NUM = 0;
+    static String CURRENT_USER_STU_NUM;
     static String CURRENT_USER_USERNAME = "DEFAULT";
     static int CURRENT_USER_AVATAR = 0;
 
@@ -48,7 +48,8 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         setContentView(R.layout.activity_home_page);
 
         texts.clear();
-        CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
+        //CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
+        CURRENT_USER_USERNAME = getIntent().getStringExtra("STU_NUM");
 
         // Crashes the app
         //requestWindowFeature(Window.FEATURE_NO_TITLE);

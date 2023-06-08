@@ -32,11 +32,17 @@ import java.util.Map;
 public class CreateProfileActivity extends AppCompatActivity {
     //   private static final String URL = "https://lamp.ms.wits.ac.za/home/s2541383/hala.php";
     private int index = 0;
-
+    ToggleButton t1;
+    ToggleButton t2;
+    ToggleButton t3;
+    ToggleButton t4;
+    ToggleButton t5;
+    ToggleButton t6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         String stu_num = getIntent().getStringExtra("StudentNumber");
         setContentView(R.layout.activity_create_profile);
@@ -55,12 +61,14 @@ public class CreateProfileActivity extends AppCompatActivity {
         CardView cardView5 = findViewById(R.id.esport4);
         CardView cardView6 = findViewById(R.id.esport5);
 
-        ToggleButton t1 = findViewById(R.id.esport_toggle);
-        ToggleButton t2 = findViewById(R.id.diamond_toggle);
-        ToggleButton t3 = findViewById(R.id.face_toggle);
-        ToggleButton t4 = findViewById(R.id.peace_toggle);
-        ToggleButton t5 = findViewById(R.id.moon_toggle);
-        ToggleButton t6 = findViewById(R.id.pokemon_toggle);
+        t1 = findViewById(R.id.esport_toggle);
+        t2 = findViewById(R.id.diamond_toggle);
+        t3 = findViewById(R.id.face_toggle);
+        t4 = findViewById(R.id.peace_toggle);
+        t5 = findViewById(R.id.moon_toggle);
+        t6 = findViewById(R.id.pokemon_toggle);
+
+
 
         ToggleButton [] T_buttons = {t1,t2,t3,t4,t5,t6};
 
@@ -185,18 +193,28 @@ public class CreateProfileActivity extends AppCompatActivity {
             }
         });
         //  VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
+
+        //this should take you to the homepage after choosing a username AND avatar
         FinishButton.setOnClickListener(new View.OnClickListener() {
+            //first check if username is not empty and one of the buttons have been chosen
+
             @Override
             public void onClick(View view) {
 
                 String UserName = user.getText().toString().trim();
                 if (!UserName.isEmpty()) {
-                    VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
-                    volleyRequestHelper.insertData(UserName, index, stu_num);
-                    Intent intent = new Intent(CreateProfileActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    if (t1.isChecked() || t2.isChecked() || t3.isChecked() || t4.isChecked() || t5.isChecked() || t6.isChecked()){
+                        VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
+                        volleyRequestHelper.insertData(UserName, index, stu_num);
+                        Intent intent = new Intent(CreateProfileActivity.this, HomePage.class);
+                        intent.putExtra("STU_NUM", stu_num);
+                        startActivity(intent);
+                        finishAffinity();
+                    }else {
+                        Toast.makeText(CreateProfileActivity.this, "Please choose an avatar", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(CreateProfileActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProfileActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
                 }
             }
         });

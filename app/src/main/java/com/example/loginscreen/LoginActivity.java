@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -140,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                                             if (currentStuNum.equals(studentNumber) && currentStuPass.equals(HashedPassword)) {
                                                 //Login successful, go to homepage
                                                 Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                                intent.putExtra("USERNAME", name);
                                                 startActivity(intent);
                                                 finish();
                                                 found = true; // set flag to true

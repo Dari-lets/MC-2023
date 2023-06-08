@@ -4,29 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewReplyActivity">
+    tools:context=".NewReplyActivity"
+    android:background="@drawable/loginbg">
 
     <EditText
         android:id="@+id/txtNewReply"
         android:layout_width="377dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="216dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/custom_edittext_greybordered"
         android:ems="10"
         android:hint="Type your message..."
         android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textReply" />
 
     <Button
         android:id="@+id/btnSendReply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="25dp"
         android:text="SEND"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +47,9 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_person_24" />
+        app:srcCompat="@drawable/baseline_person_24"
+        android:background="@drawable/custom_edittext"
+        />
 
     <TextView
         android:id="@+id/usernameReply"
@@ -53,8 +62,10 @@
 
     <TextView
         android:id="@+id/textReply"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
+        android:minWidth="377dp"
         android:layout_height="wrap_content"
+        android:minHeight="25dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
