@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -113,8 +116,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
-                 boolean ValidInput = true;
+                boolean ValidInput = true;
                 //strings for holding the input from the app user in the EditTexts
                 String stu_number = stu_num.getText().toString();
                 String password = PasswordEditText.getText().toString();
@@ -155,6 +157,7 @@ public class SignupActivity extends AppCompatActivity {
                         Intent intent = new Intent(SignupActivity.this, CreateProfileActivity.class);
                         intent.putExtra("StudentNumber",stu_number);
                         startActivity(intent);
+                        finish();
                     } else {//input ans answers are invalid, do not process
                         pwDontMatch.setText("Passwords Do Not Match!");
                     }
@@ -165,6 +168,8 @@ public class SignupActivity extends AppCompatActivity {
 
         //store the answers in the array
         SubmitButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
                 boolean ValidAnswers = true;
@@ -173,35 +178,85 @@ public class SignupActivity extends AppCompatActivity {
                 String Ans2 = Answer2.getText().toString();
                 String stu_number = stu_num.getText().toString();
 
-                //checking the answers
-                if(Ans.isEmpty()){
-                    ValidAnswers=false;
-                    AnswerText.setText("Required Field");
-                } else{
-                    AnswerText.setText("");
+                if (stu_number.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please Enter Valid Student Number", Toast.LENGTH_SHORT).show();
                 }
-                if(Ans1.isEmpty()){
-                    ValidAnswers=false;
-                    Answer1Text.setText("Required Field");
-                } else{
-                    Answer1Text.setText("");
-                }
-                if(Ans2.isEmpty()){
-                    ValidAnswers=false;
-                    Answer2Text.setText("Required Field");
-                } else{
-                    Answer2Text.setText("");
-                }
+                else {
+                    //checking the answers
+                    if (Ans.isEmpty()) {
+                        ValidAnswers = false;
+                        AnswerText.setText("Required Field");
+                    } else {
+                        AnswerText.setText("");
+                    }
+                    if (Ans1.isEmpty()) {
+                        ValidAnswers = false;
+                        Answer1Text.setText("Required Field");
+                    } else {
+                        Answer1Text.setText("");
+                    }
+                    if (Ans2.isEmpty()) {
+                        ValidAnswers = false;
+                        Answer2Text.setText("Required Field");
+                    } else {
+                        Answer2Text.setText("");
+                    }
 
-                if(ValidAnswers){//if answers are valid, store them and remove that layout
-                    //store answers in the array
-                    Answers[0]=Ans;
-                    Answers[1]=Ans1;
-                    Answers[2]=Ans2;
-                    //store answers in db
-                    InsertAnswers(stu_number,Ans,Ans1,Ans2);
-                    LayoutQuestions.setVisibility(View.GONE);
-                    submitted =true;
+                    if (ValidAnswers) {//if answers are valid, store them and remove that layout
+                        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sqget.php";
+
+
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // Process the response from the PHP file41
+                                        // Here you can parse the JSON response and perform actions accordingly
+                                        try {
+                                            Vector <String> StuNums = processJSONStu(response);
+                                            boolean found = false;
+                                            for (int i = 0; i < StuNums.size(); i++) {
+
+                                                if (StuNums.get(i).equals(stu_number)) {
+                                                    found = true;
+                                                    break;
+                                                }
+
+                                            }
+
+                                            if (!found){
+                                                //store answers in the array
+                                                Answers[0] = Ans;
+                                                Answers[1] = Ans1;
+                                                Answers[2] = Ans2;
+                                                //store answers in db
+                                                InsertAnswers(stu_number, Ans, Ans1, Ans2);
+                                                //LayoutQuestions.setVisibility(View.GONE);
+                                                submitted = true;
+                                            }
+                                            else{
+                                                Toast.makeText(SignupActivity.this, "Student Number Already Exists", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            // Handle the exception if there is an error parsing the JSON
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // Handle error response
+                                        error.printStackTrace();
+                                    }
+                                });
+
+                        RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
+                        requestQueue.add(stringRequest);
+
+                    }
+
                 }
             }
         });
@@ -219,15 +274,16 @@ public class SignupActivity extends AppCompatActivity {
 
                             if (status.equals("success")) {
                                 Toast.makeText(SignupActivity.this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
-                                // Switch to login page or perform any other actions
-                                //Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                //startActivity(intent);
+
                             } else if (status.equals("error")) {
                                 String errorMessage = jsonObject.optString("message");
+
                                 Toast.makeText(SignupActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(SignupActivity.this, "Unknown response", Toast.LENGTH_SHORT).show();
                             }
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(SignupActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
@@ -257,7 +313,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void InsertAnswers(String studentNumber, String Q1, String Q2, String Q3) {
 
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sq_post.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sqpost.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -265,9 +321,9 @@ public class SignupActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            String status = jsonObject.optString("status");
+                            String status = jsonObject.optString("action", "");
 
-                            if (status.equals("success")) {
+                            if (status.equals("works")) {
                                 Toast.makeText(SignupActivity.this, "Data Submitted Successfully", Toast.LENGTH_SHORT).show();
                                 // Switch to login page or perform any other actions
 
@@ -276,6 +332,11 @@ public class SignupActivity extends AppCompatActivity {
 
                             } else if (status.equals("error")) {
                                 String errorMessage = jsonObject.optString("message");
+
+                                if (errorMessage.equals("Student Number already exists")){
+                                    String action = jsonObject.getString("action");
+
+                                }
                                 Toast.makeText(SignupActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(SignupActivity.this, "Unknown response", Toast.LENGTH_SHORT).show();
@@ -307,6 +368,20 @@ public class SignupActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
+        LayoutQuestions.setVisibility(View.GONE);
+    }
+
+    public Vector<String> processJSONStu(String jsonyy) throws JSONException {
+        JSONArray q = new JSONArray(jsonyy);
+        Vector<String> vecStuNums = new Vector<>();
+
+        for (int i = 0; i < q.length(); i++) {
+            JSONObject job = q.getJSONObject(i);
+            String studentNumber = job.getString("STU_NUM");
+            vecStuNums.add(studentNumber);
+        }
+        return vecStuNums;
     }
 
 }
