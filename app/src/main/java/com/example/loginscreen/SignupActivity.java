@@ -33,7 +33,6 @@ import java.util.Vector;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String URL = "https://lamp.ms.wits.ac.za/home/s2549501/register.php";
-    Button BackButton;
     Button SubmitButton;
     TextView Question1Text;
     TextView Question2Text;
@@ -75,7 +74,6 @@ public class SignupActivity extends AppCompatActivity {
         PasswordEditText = findViewById(R.id.signup_password);
         ConfirmPasswordEditText = findViewById(R.id.signup_confirm_password);
         pwDontMatch = findViewById(R.id.ConfirmPwText);
-        BackButton = findViewById(R.id.BackButton);
         SubmitButton = findViewById(R.id.SubmitButton);
         Question1Text = findViewById(R.id.Question1Text);
         Question2Text = findViewById(R.id.Question2Text);
@@ -104,13 +102,7 @@ public class SignupActivity extends AppCompatActivity {
         String[] Answers = {"","",""};
 
         Vector<String> StuNums = new Vector<String>();
-        BackButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //move to the login page
-                finish();
-            }
-        });
+
 
         SignUp.setOnClickListener(new View.OnClickListener() {
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -31,6 +32,8 @@ public class UpdatePasswordActivity extends AppCompatActivity {
     String STU_NUM;
     EditText password;
     EditText confirmPassword;
+    TextView ConfirmPasswordText;
+    TextView PasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,8 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         STU_NUM = getIntent().getStringExtra("STU_NUM");
         password = (EditText) findViewById(R.id.NewPassword);
         confirmPassword = (EditText) findViewById(R.id.ConfirmNewPassword);
-
+        ConfirmPasswordText = findViewById(R.id.ConfirmPasswordText);
+        PasswordText = findViewById(R.id.PasswordText);
 
         //user has changed their password and are taken to the login page
         Confirm.setOnClickListener(new View.OnClickListener() {
@@ -49,9 +53,22 @@ public class UpdatePasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String updatedPassword = password.getText().toString();
+                String confirmNewPassword = confirmPassword.getText().toString();
+                boolean notEmpty=true;
+                //check that fields are not empty
+                if(updatedPassword.isEmpty()){
+                    notEmpty=false;
+                    PasswordText.setText("Field Required");
+                }
+                if(confirmNewPassword.isEmpty()){
+                    notEmpty=false;
+                    ConfirmPasswordText.setText("Field Required");
+
+
+                }
 
                 // make sure passwords match
-                if (updatedPassword.equals(confirmPassword.getText().toString())) {
+                if (updatedPassword.equals(confirmPassword.getText().toString()) && notEmpty) {
                     String hashedPassword = hashPassword(updatedPassword);
                     String url = "https://lamp.ms.wits.ac.za/home/s2549501/updatePassword.php";
 
