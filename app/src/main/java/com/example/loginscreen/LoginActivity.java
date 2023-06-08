@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -123,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                 try {
                                     Vector<String> stuNums = processJSONStu(response);
                                     Vector<String> stuPass = processJSONPas(response);
+                                    Vector<String> stuUsernames = processJSONUsernames(response);
                                     m.setOrientation(m.VERTICAL);
 
                                     if (stuNums.size() == 0) {
@@ -136,10 +136,12 @@ public class LoginActivity extends AppCompatActivity {
                                         for (int i = 0; i < stuNums.size(); i++) {
                                             String currentStuNum = stuNums.get(i);
                                             String currentStuPass = stuPass.get(i);
+                                            String currentStuUsername = stuUsernames.get(i);
 
                                             if (currentStuNum.equals(studentNumber) && currentStuPass.equals(HashedPassword)) {
                                                 //Login successful, go to homepage
                                                 Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                                intent.putExtra("USERNAME", currentStuUsername);
                                                 startActivity(intent);
                                                 finish();
                                                 found = true; // set flag to true
@@ -205,6 +207,19 @@ public class LoginActivity extends AppCompatActivity {
             vecStuPass.add(password);
         }
         return vecStuPass;
+    }
+
+    // NEW processes the student usernames
+    public Vector<String> processJSONUsernames(String jsonyy) throws JSONException {
+        JSONArray q = new JSONArray(jsonyy);
+        Vector<String> vecStuUsernames = new Vector<>();
+
+        for (int i = 0; i < q.length(); i++) {
+            JSONObject job = q.getJSONObject(i);
+            String password = job.getString("USERNAME");
+            vecStuUsernames.add(password);
+        }
+        return vecStuUsernames;
     }
 
     public void LoginSuccessful(){

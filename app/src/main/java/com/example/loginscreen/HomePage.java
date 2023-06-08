@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,7 +32,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     MessageAdapterClass adapter;
     RecyclerView recyclerView;
 
-    static int CURRENT_USER_STU_NUM = 0;
+    static String CURRENT_USER_STU_NUM = "DEFAULT";
     static String CURRENT_USER_USERNAME = "DEFAULT";
     static int CURRENT_USER_AVATAR = 0;
 
@@ -39,8 +40,9 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     static int MESSAGE_TYPE = 0;
     static int REPLY_TYPE = 1;
 
-    static int [] avatars = {R.drawable.baseline_sports_esports_24, R.drawable.baseline_person_24 ,R.drawable.baseline_bedtime_24, R.drawable.baseline_star_24,
-            R.drawable.baseline_umbrella_24, R.drawable.baseline_self_improvement_24};
+    int[] avatars = {R.drawable.baseline_sports_esports_24, R.drawable.baseline_diamond_24,
+            R.drawable.face, R.drawable.baseline_self_improvement_24, R.drawable.moon,
+            R.drawable.pokemon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
                                 @Override
                                 public void run() {
                                     loadVotes();
+                                    texts.sort(Comparator.comparing(MessageClass::getVotes).reversed());
                                     adapter.notifyDataSetChanged();
                                 }
                             });

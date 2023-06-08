@@ -38,8 +38,9 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
 
     int originalMessageIndex;
 
-    int [] avatars = {R.drawable.baseline_sports_esports_24, R.drawable.baseline_person_24 ,R.drawable.baseline_bedtime_24, R.drawable.baseline_star_24,
-            R.drawable.baseline_umbrella_24, R.drawable.baseline_self_improvement_24};
+    int[] avatars = {R.drawable.baseline_sports_esports_24, R.drawable.baseline_diamond_24,
+            R.drawable.face, R.drawable.baseline_self_improvement_24, R.drawable.moon,
+            R.drawable.pokemon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
