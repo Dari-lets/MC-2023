@@ -26,7 +26,7 @@ import okhttp3.Response;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     Button Submit;
-    Button GoBack;
+
     String [] answers = new String[3];
     EditText q1;
     EditText q2;
@@ -42,7 +42,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         Submit = findViewById(R.id.SubmitButton);
-        GoBack = findViewById(R.id.BackButton);
+
         q1 = (EditText) findViewById(R.id.answer1);
         q2 = (EditText) findViewById(R.id.answer2);
         q3 = (EditText) findViewById(R.id.answer3);
@@ -52,16 +52,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         ans2 = q2.getText().toString().toLowerCase();
         ans3 = q3.getText().toString().toLowerCase();
 
-        //clicking back button, go to login
-        GoBack.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         //after submitting and VERIFYING the answers to the security questions, go to update password
         Submit.setOnClickListener(new View.OnClickListener() {
