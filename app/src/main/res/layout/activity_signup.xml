@@ -51,18 +51,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/StudentNumber"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/custom_edittext"
-                android:backgroundTint="@color/darkish_grey"
-                android:hint="Enter Student Number"
-                android:textColorHint="@color/white"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                    <EditText
+                        android:id="@+id/StudentNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="0dp"
+                        android:background="@drawable/custom_edittext"
+                        android:backgroundTint="@color/darkish_grey"
+                        android:hint="Enter Student Number"
+                        android:maxLength="15"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textColorHint="@color/white" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,21 +72,22 @@
                 android:textSize="11sp"
                 android:id="@+id/StudentNumberText"/>
 
-            <EditText
-                android:id="@+id/signup_password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext"
-                android:backgroundTint="@color/darkish_grey"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:drawablePadding="8dp"
-                android:hint="Enter Password"
-                android:textColorHint="@color/white"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                    <EditText
+                        android:id="@+id/signup_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/custom_edittext"
+                        android:backgroundTint="@color/darkish_grey"
+                        android:drawableLeft="@drawable/baseline_lock_24"
+                        android:drawablePadding="8dp"
+                        android:hint="Enter Password"
+                        android:inputType="textPassword"
+                        android:maxLength="100"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textColorHint="@color/white" />
 
             <TextView
                 android:layout_width="match_parent"

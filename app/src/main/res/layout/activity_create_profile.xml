@@ -45,15 +45,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
-                android:hint="Enter Username"
-                android:textColorHint="@color/white"
                 android:background="@drawable/custom_edittext"
                 android:backgroundTint="@color/darkish_grey"
                 android:drawablePadding="8dp"
+                android:hint="Enter Username"
+                android:maxLength="25"
 
                 android:padding="8dp"
                 android:textColor="@color/white"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:textColorHint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
