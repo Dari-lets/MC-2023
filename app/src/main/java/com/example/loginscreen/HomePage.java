@@ -1,11 +1,14 @@
 package com.example.loginscreen;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.widget.ToggleButton;
@@ -26,6 +29,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HomePage extends AppCompatActivity implements RecyclerInterface{
+
+    private Toolbar toolbar;
+    ImageView toolbarExtras;
 
     static ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
 
@@ -49,6 +55,8 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
+
         texts.clear();
         CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
         CURRENT_USER_AVATAR = getIntent().getIntExtra("AVATAR", CURRENT_USER_AVATAR);
@@ -67,6 +75,18 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         adapter = new MessageAdapterClass(this, texts, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        toolbarExtras = findViewById(R.id.MenuIcon);
+        toolbarExtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
+    private void onExtrasClicked(){
 
     }
 
