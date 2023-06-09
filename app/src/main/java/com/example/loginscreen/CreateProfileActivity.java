@@ -16,18 +16,25 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class CreateProfileActivity extends AppCompatActivity {
     //   private static final String URL = "https://lamp.ms.wits.ac.za/home/s2541383/hala.php";
@@ -38,16 +45,19 @@ public class CreateProfileActivity extends AppCompatActivity {
     ToggleButton t4;
     ToggleButton t5;
     ToggleButton t6;
+    String stu_num;
+    EditText user;
+    boolean valid = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        String stu_num = getIntent().getStringExtra("StudentNumber");
+        stu_num = getIntent().getStringExtra("StudentNumber");
         setContentView(R.layout.activity_create_profile);
         Button FinishButton = findViewById(R.id.FinishButton);
-        EditText user = findViewById(R.id.Username1);
+        user = findViewById(R.id.Username1);
         //take text from
         int[] avatars = {R.drawable.baseline_sports_esports_24, R.drawable.baseline_diamond_24,
                 R.drawable.face, R.drawable.baseline_self_improvement_24, R.drawable.moon,
@@ -188,25 +198,85 @@ public class CreateProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                valid = true;
+                loadUsernames();
+            }
+        });
+    }
 
-                String UserName = user.getText().toString().trim();
-                if (!UserName.isEmpty()) {
-                    if (t1.isChecked() || t2.isChecked() || t3.isChecked() || t4.isChecked() || t5.isChecked() || t6.isChecked()){
-                        VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
-                        volleyRequestHelper.insertData(UserName, index, stu_num);
-                        Intent intent = new Intent(CreateProfileActivity.this, HomePage.class);
-                        intent.putExtra("USERNAME", UserName);
-                        intent.putExtra("AVATAR", index);
-                        startActivity(intent);
-                        finishAffinity();
-                    }else {
-                        Toast.makeText(CreateProfileActivity.this, "Please choose an avatar", Toast.LENGTH_SHORT).show();
+    public void loadUsernames(){
+        String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
+
+        OkHttpClient client = new OkHttpClient();
+
+        okhttp3.Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    String UserName = user.getText().toString().trim();
+
+                    String myResponse = response.body().string();
+                    try{
+                        JSONArray responseArray = new JSONArray(myResponse);
+
+                        for (int i = 0; i < responseArray.length(); i++) {
+                            JSONObject arrayObject = responseArray.getJSONObject(i);
+                            String username = arrayObject.getString("USERNAME");
+                            if (UserName.equals(username)){
+                                valid = false;
+                                break;
+                            }
+                        }
+
+
+                        CreateProfileActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (valid){
+                                    sendData();
+                                }
+                                else{
+                                    Toast.makeText(CreateProfileActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+                    } catch (JSONException e){
+                        e.printStackTrace();
                     }
-                } else {
-                    Toast.makeText(CreateProfileActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
+    }
+
+    private void sendData(){
+        String UserName = user.getText().toString().trim();
+        if (!UserName.isEmpty()) {
+            if (t1.isChecked() || t2.isChecked() || t3.isChecked() || t4.isChecked() || t5.isChecked() || t6.isChecked()){
+                VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
+                volleyRequestHelper.insertData(UserName, index, stu_num);
+                Intent intent = new Intent(CreateProfileActivity.this, HomePage.class);
+                intent.putExtra("USERNAME", UserName);
+                intent.putExtra("AVATAR", index);
+                startActivity(intent);
+                finishAffinity();
+            }else {
+                Toast.makeText(CreateProfileActivity.this, "Please choose an avatar", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(CreateProfileActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -59,6 +59,10 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
         CURRENT_USER_AVATAR = getIntent().getIntExtra("AVATAR", CURRENT_USER_AVATAR);
 
+        LoginActivity.manageSession.setLoggedIn(true);
+        LoginActivity.manageSession.setAvatar(CURRENT_USER_AVATAR);
+        LoginActivity.manageSession.setUsername(CURRENT_USER_USERNAME);
+
         // Create recycler view for the home page
         recyclerView = findViewById(R.id.mRecycler);
         recyclerView.setItemAnimator(null);
