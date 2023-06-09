@@ -46,7 +46,6 @@ public class CreateProfileActivity extends AppCompatActivity {
 
         String stu_num = getIntent().getStringExtra("StudentNumber");
         setContentView(R.layout.activity_create_profile);
-        Button BackButton = findViewById(R.id.BackButton);
         Button FinishButton = findViewById(R.id.FinishButton);
         EditText user = findViewById(R.id.Username1);
         //take text from
@@ -182,17 +181,6 @@ public class CreateProfileActivity extends AppCompatActivity {
             }
 
         });
-
-
-        //go back to sign up
-        BackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateProfileActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-        //  VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
 
         //this should take you to the homepage after choosing a username AND avatar
         FinishButton.setOnClickListener(new View.OnClickListener() {

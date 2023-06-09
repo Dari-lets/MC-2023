@@ -31,7 +31,7 @@ import okhttp3.Response;
 public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
     private Toolbar toolbar;
-    ImageView toolbarExtras;
+    ImageView logOutButton;
 
     static ArrayList<MessageClass> texts = new ArrayList<MessageClass>();
 
@@ -55,16 +55,9 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
-
         texts.clear();
         CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
         CURRENT_USER_AVATAR = getIntent().getIntExtra("AVATAR", CURRENT_USER_AVATAR);
-
-        // Crashes the app
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //getSupportActionBar().hide();
 
         // Create recycler view for the home page
         recyclerView = findViewById(R.id.mRecycler);
@@ -76,20 +69,22 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        toolbarExtras = findViewById(R.id.MenuIcon);
-        toolbarExtras.setOnClickListener(new View.OnClickListener() {
+        logOutButton = findViewById(R.id.LogOut);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                onLogOutClicked();
             }
         });
 
     }
 
-    private void onExtrasClicked(){
-
+    private void onLogOutClicked(){
+        LoginActivity.manageSession.LogOut();
+        Intent intent = new Intent(HomePage.this, LoginActivity.class);
+        startActivity(intent);
+        finishAffinity();
     }
-
 
     private void loadMessages(){
         texts.clear();

@@ -56,4 +56,10 @@ public class ManageSession {
         editor.apply();
     }
 
+    public void LogOut(){
+        setLoggedIn(false);
+        deleteUsernamePreference();
+        deleteAvatarPreference();
+    }
+
 }

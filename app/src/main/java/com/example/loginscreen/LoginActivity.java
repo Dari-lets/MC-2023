@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText Checker;
 
-    ManageSession manageSession;
+    static ManageSession manageSession;
 
     @SuppressLint("MissingInflatedId")
     @Override
