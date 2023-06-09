@@ -207,7 +207,8 @@ public class CreateProfileActivity extends AppCompatActivity {
                         VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(CreateProfileActivity.this);
                         volleyRequestHelper.insertData(UserName, index, stu_num);
                         Intent intent = new Intent(CreateProfileActivity.this, HomePage.class);
-                        intent.putExtra("STU_NUM", stu_num);
+                        intent.putExtra("USERNAME", UserName);
+                        intent.putExtra("AVATAR", index);
                         startActivity(intent);
                         finishAffinity();
                     }else {

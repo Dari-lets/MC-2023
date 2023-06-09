@@ -51,6 +51,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
         texts.clear();
         CURRENT_USER_USERNAME = getIntent().getStringExtra("USERNAME");
+        CURRENT_USER_AVATAR = getIntent().getIntExtra("AVATAR", CURRENT_USER_AVATAR);
 
         // Crashes the app
         //requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText Checker;
 
+    ManageSession manageSession;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,23 @@ public class LoginActivity extends AppCompatActivity {
         UsernameText = findViewById(R.id.UsernameText);
         PasswordText = findViewById(R.id.PasswordText);
 
+        manageSession = new ManageSession(LoginActivity.this);
 
         LsOnly = new TextView(this);
         print = new EditText(this);
 
+        //manageSession.setLoggedIn(false);
+        // If it doesn't want to logout, just un-comment this to manually set status to false
 
+        //returns a boolean that checks if the person is Logged in or not. If they are, switch to home page. See in the Login.ClickListener how the status was set to true
+        if (manageSession.isLoggedIn()) {
+            // User is logged in, Go to the Home Page
+            Intent intent = new Intent(LoginActivity.this, HomePage.class);
+            intent.putExtra("USERNAME", manageSession.getUsername());
+            intent.putExtra("AVATAR", manageSession.getAvatar());
+            startActivity(intent);
+            finish();
+        }
 
         //when user presses sign up button
         RegisterFromLogin.setOnClickListener(new View.OnClickListener() {
@@ -112,76 +126,87 @@ public class LoginActivity extends AppCompatActivity {
                     PasswordText.setText("");
                 }
                 if (ValidInput) {
-                String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
+                    String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
 
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    Vector<String> stuNums = processJSONStu(response);
-                                    Vector<String> stuPass = processJSONPas(response);
-                                    Vector<String> stuUsernames = processJSONUsernames(response);
-                                    m.setOrientation(m.VERTICAL);
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        Vector<String> stuNums = processJSONStu(response);
+                                        Vector<String> stuPass = processJSONPas(response);
+                                        Vector<String> stuUsernames = processJSONUsernames(response);
+                                        Vector<Integer> stuAvatars = processJSONAvatars(response);
+                                        m.setOrientation(m.VERTICAL);
 
-                                    if (stuNums.size() == 0) {
-                                        LsOnly.setText("Database empty, register now!");
+                                        if (stuNums.size() == 0) {
+                                            LsOnly.setText("Database empty, register now!");
+                                            setContentView(m);
+                                            m.addView(LsOnly);
+                                        } else {
+
+                                            boolean found = false;
+
+                                            for (int i = 0; i < stuNums.size(); i++) {
+                                                String currentStuNum = stuNums.get(i);
+                                                String currentStuPass = stuPass.get(i);
+                                                String currentStuUsername = stuUsernames.get(i);
+                                                int currentStuAvatar = stuAvatars.get(i);
+
+                                                if (currentStuNum.equals(studentNumber) && currentStuPass.equals(HashedPassword)) {
+                                                    //Login successful, go to homepage
+                                                    Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                                    intent.putExtra("USERNAME", currentStuUsername);
+                                                    intent.putExtra("AVATAR", currentStuAvatar);
+                                                    startActivity(intent);
+                                                    finish();
+                                                    //if the person's credentials are correct, set the LoggedIn status to true, meaning app will stay logged in
+                                                    manageSession.setLoggedIn(true);
+                                                    manageSession.setUsername(currentStuUsername);
+                                                    manageSession.setAvatar(currentStuAvatar);
+
+                                                    //check the bottom of this page for short explanation on Logging out
+                                                    found = true; // set flag to true
+                                                    break;
+
+
+                                                }
+                                            }
+
+                                            if (!found) {//invalid credentials
+                                                Toast toast = Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT);
+                                                toast.setGravity(Gravity.TOP, 0, 0);
+                                                toast.show();
+                                            }
+
+                                        }
+                                    } catch (JSONException e) {
+                                        //this is also for us, for testing
+                                        Log.e("JSONException", e.getMessage()); // Log the error
+                                        LsOnly.setText("Something bad has happened...");
                                         setContentView(m);
                                         m.addView(LsOnly);
-                                    } else {
-
-                                        boolean found = false;
-
-                                        for (int i = 0; i < stuNums.size(); i++) {
-                                            String currentStuNum = stuNums.get(i);
-                                            String currentStuPass = stuPass.get(i);
-                                            String currentStuUsername = stuUsernames.get(i);
-
-                                            if (currentStuNum.equals(studentNumber) && currentStuPass.equals(HashedPassword)) {
-                                                //Login successful, go to homepage
-                                                Intent intent = new Intent(LoginActivity.this, HomePage.class);
-                                                intent.putExtra("USERNAME", currentStuUsername);
-                                                startActivity(intent);
-                                                finish();
-                                                found = true; // set flag to true
-                                                break;
-
-                                            }
-                                        }
-
-                                        if (!found) {//invalid credentials
-                                            Toast toast = Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT);
-                                            toast.setGravity(Gravity.TOP, 0, 0);
-                                            toast.show();
-                                        }
-
                                     }
-                                } catch (JSONException e) {
-                                    //this is also for us, for testing
-                                    Log.e("JSONException", e.getMessage()); // Log the error
-                                    LsOnly.setText("Something bad has happened...");
-                                    setContentView(m);
-                                    m.addView(LsOnly);
+
                                 }
 
-                            }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("VolleyError", error.getMessage()); // Log the error
+                            LsOnly.setText("Error occurred");
+                            setContentView(m);
+                            m.addView(LsOnly);
+                        }
+                    });
 
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("VolleyError", error.getMessage()); // Log the error
-                        LsOnly.setText("Error occurred");
-                        setContentView(m);
-                        m.addView(LsOnly);
-                    }
-                });
-
-                RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-                requestQueue.add(stringRequest);
+                    RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+                    requestQueue.add(stringRequest);
+                }
             }
-        }
         });
+
 
     }
 
@@ -222,11 +247,40 @@ public class LoginActivity extends AppCompatActivity {
         return vecStuUsernames;
     }
 
+    public Vector<Integer> processJSONAvatars(String jsonyy) throws JSONException {
+        JSONArray q = new JSONArray(jsonyy);
+        Vector<Integer> vecStuAvatars = new Vector<>();
+
+        for (int i = 0; i < q.length(); i++) {
+            JSONObject job = q.getJSONObject(i);
+            Integer avatar = job.getInt("AVATAR");
+            vecStuAvatars.add(avatar);
+        }
+        return vecStuAvatars;
+    }
+
     public void LoginSuccessful(){
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
         finish();
     }
+
+    /*So if you wanted to implement a logout button in another page, you can just set the status to false in the clickListener of a button e.g.
+     *
+     * Logout.OnClickListener(new View.OnClickListener()  {
+     *
+     *   @Override
+     *   public void OnClick(View V) {
+     *
+     *       manageSession.setLoggedIn(false);
+     *       "End Current Page Activity"
+     *
+     *   }
+     *
+     * });
+     *
+     * The class should handle all the other stuff ^_^ */
+
 }
 
 
