@@ -92,7 +92,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
 
     private void loadMessages(){
         texts.clear();
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/loadMessages.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/loadMessages.php";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -147,7 +147,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     }
 
     private void loadVotes(){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/msgVotes.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/msgVotes.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", CURRENT_USER_USERNAME);
@@ -210,7 +210,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     }
 
     private void sendNewText(String text){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/newMessage.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/newMessage.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", CURRENT_USER_USERNAME);
@@ -302,7 +302,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
     private void updateVotes(int position, int updateScore){
         texts.get(position).setVotes(texts.get(position).getVotes() + updateScore);
         adapter.notifyItemChanged(position);
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/newMsgVote.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/newMsgVote.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", CURRENT_USER_USERNAME);

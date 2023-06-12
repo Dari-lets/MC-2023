@@ -63,7 +63,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public void loadAnswers(String stu_Num){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/loadSecurityAnswers.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/loadSecurityAnswers.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("STU_NUM", stu_Num);

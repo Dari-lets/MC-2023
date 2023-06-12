@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class VolleyRequestHelper {
     private static final String TAG = "VolleyRequestHelper";
-    private static final String INSERT_URL = "https://lamp.ms.wits.ac.za/home/s2549501/save_data.php";
+    private static final String INSERT_URL = "https://lamp.ms.wits.ac.za/home/s2584540/save_data.php";
 
     private Context context;
     private RequestQueue requestQueue;

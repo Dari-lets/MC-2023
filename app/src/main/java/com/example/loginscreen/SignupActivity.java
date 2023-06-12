@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Vector;
 
 public class SignupActivity extends AppCompatActivity {
-    private static final String URL = "https://lamp.ms.wits.ac.za/home/s2549501/register.php";
+    private static final String URL = "https://lamp.ms.wits.ac.za/home/s2584540/register.php";
     Button SubmitButton;
     TextView Question1Text;
     TextView Question2Text;
@@ -136,7 +136,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (ValidInput && submitted) {//input and answers are valid
                     if (password.equals(ConfirmPassword)) { //passwords match
-                        String url = "https://lamp.ms.wits.ac.za/home/s2549501/register.php";
+                        String url = "https://lamp.ms.wits.ac.za/home/s2584540/register.php";
                         String hashedPassword = hashPassword(password);
                         if (hashedPassword != null) {
                             //store input in db
@@ -195,7 +195,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
 
                     if (ValidAnswers) {//if answers are valid, store them and remove that layout
-                        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sqget.php";
+                        String url = "https://lamp.ms.wits.ac.za/home/s2584540/sqget.php";
 
 
                         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -305,7 +305,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void InsertAnswers(String studentNumber, String Q1, String Q2, String Q3) {
 
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/sqpost.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/sqpost.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
