@@ -89,7 +89,7 @@ public class NewReplyActivity extends AppCompatActivity {
     }
 
     private void sendNewReply(String text){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/newReply.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/newReply.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", HomePage.CURRENT_USER_USERNAME);

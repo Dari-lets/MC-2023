@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     PasswordText.setText("");
                 }
                 if (ValidInput) {
-                    String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
+                    String url = "https://lamp.ms.wits.ac.za/home/s2584540/login.php";
 
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                             new Response.Listener<String>() {

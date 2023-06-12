@@ -205,7 +205,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void loadUsernames(){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/login.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/login.php";
 
         OkHttpClient client = new OkHttpClient();
 

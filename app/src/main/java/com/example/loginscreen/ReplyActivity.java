@@ -79,7 +79,7 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
 
     private void loadReplies(){
         replies.clear();
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/loadReplies.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/loadReplies.php";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("MSG_ID", Integer.toString(originalMessage.getID()));
         String url2 = urlBuilder.build().toString();
@@ -137,7 +137,7 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
     }
 
     private void loadReplyVotes(){
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/replyVotes.php";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/replyVotes.php";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", HomePage.CURRENT_USER_USERNAME);
@@ -258,7 +258,7 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
 
         replies.get(position).setVotes(replies.get(position).getVotes() + updateScore);
         adapter.notifyItemChanged(position);
-        String url = "https://lamp.ms.wits.ac.za/home/s2549501/newReplyVote.php ";
+        String url = "https://lamp.ms.wits.ac.za/home/s2584540/newReplyVote.php ";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("USERNAME", HomePage.CURRENT_USER_USERNAME);

@@ -70,7 +70,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
                 // make sure passwords match
                 if (updatedPassword.equals(confirmPassword.getText().toString()) && notEmpty) {
                     String hashedPassword = hashPassword(updatedPassword);
-                    String url = "https://lamp.ms.wits.ac.za/home/s2549501/updatePassword.php";
+                    String url = "https://lamp.ms.wits.ac.za/home/s2584540/updatePassword.php";
 
                     HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
                     urlBuilder.addQueryParameter("STU_NUM", STU_NUM);
