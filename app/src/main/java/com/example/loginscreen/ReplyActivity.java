@@ -298,7 +298,7 @@ public class ReplyActivity extends AppCompatActivity implements ReplyRecyclerInt
             if (resultCode == RESULT_OK){
                 String result = data.getStringExtra("REPLY");
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-                ReplyClass newReply = new ReplyClass(HomePage.CURRENT_USER_USERNAME, result, HomePage.CURRENT_USER_AVATAR);
+                ReplyClass newReply = new ReplyClass(HomePage.CURRENT_USER_USERNAME, result, avatars[HomePage.CURRENT_USER_AVATAR]);
                 newReply.setOrignalMessageKey(originalMessage.getID());
                 replies.add(newReply);
 
