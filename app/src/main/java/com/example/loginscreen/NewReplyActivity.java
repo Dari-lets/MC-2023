@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -110,7 +111,13 @@ public class NewReplyActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                Toast.makeText(NewReplyActivity.this, "Reply failed.", Toast.LENGTH_SHORT).show();
+                NewReplyActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(NewReplyActivity.this, "Reply failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {

@@ -339,7 +339,7 @@ public class HomePage extends AppCompatActivity implements RecyclerInterface{
         if (requestCode == 1){
             if (resultCode == RESULT_OK){
                 String result = data.getStringExtra("TEXT");
-                texts.add(new MessageClass(CURRENT_USER_USERNAME, result, CURRENT_USER_AVATAR));
+                texts.add(new MessageClass(CURRENT_USER_USERNAME, result, avatars[CURRENT_USER_AVATAR]));
                 adapter.notifyItemInserted(texts.size() - 1);
                 sendNewText(result);
             }
